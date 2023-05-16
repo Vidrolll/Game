@@ -20,8 +20,6 @@ import com.test.main.util.input.MouseInput;
 
 public class Main extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
-
-	private String var = "Test";
 	
 	private boolean running = false;
 	private Thread thread;
