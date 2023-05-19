@@ -1,0 +1,5 @@
+{
+  "box": "tiles.Box",
+  "player": "Player",
+  "enemy": "enemies.BasicEnemy"
+}

@@ -41,18 +41,6 @@ public class PlayerController implements Controller {
 	}
 	
 	public void update() {
-		if(keyDown[2]&&collision.groundCheck()) {
-			plr.velY = -jumpPower;
-			if(!keyDown[0]&&!keyDown[1]) {
-				plr.velX+=-Math.signum(plr.velX)*(Math.abs(plr.velX)/2);
-				if(Math.abs(plr.velX)/2==0)plr.velX=0;
-			}
-			if(keyDown[0]) plr.velX = -Math.abs(plr.velX);
-			if(keyDown[1]) plr.velX = Math.abs(plr.velX);
-		} else if(keyDown[2]&&collision.collisionX()) {
-			plr.velY = -jumpPower;
-			plr.velX *= -2;
-		}
 		if(keyDown[0]&&plr.velX>-(xSpeed/2)&&(collision.groundCheck()||collision.checkX())) plr.velX+=-acceleration;
 		if(keyDown[1]&&plr.velX<(xSpeed/2)&&(collision.groundCheck()||collision.checkX())) plr.velX+=acceleration;
 		if(keyDown[0]&&(plr.velX>-(xSpeed/5)&&plr.velX<=0)&&(!collision.groundCheck())) plr.velX+=-acceleration;
@@ -98,7 +86,21 @@ public class PlayerController implements Controller {
 		if(e.getID()==KeyEvent.KEY_PRESSED) {
 			if(e.getKeyCode()==KeyEvent.VK_A) keyDown[0] = true;
 			if(e.getKeyCode()==KeyEvent.VK_D) keyDown[1] = true;
-			if(e.getKeyCode()==KeyEvent.VK_SPACE) keyDown[2] = true;
+			if(e.getKeyCode()==KeyEvent.VK_SPACE) {
+				keyDown[2] = true;
+			}
+			if(keyDown[2]&&collision.groundCheck()) {
+				plr.velY = -jumpPower;
+				if(!keyDown[0]&&!keyDown[1]) {
+					plr.velX+=-Math.signum(plr.velX)*(Math.abs(plr.velX)/2);
+					if(Math.abs(plr.velX)/2==0)plr.velX=0;
+				}
+				if(keyDown[0]) plr.velX = -Math.abs(plr.velX);
+				if(keyDown[1]) plr.velX = Math.abs(plr.velX);
+			} else if(keyDown[2]&&collision.collisionX()) {
+				plr.velY = -jumpPower;
+				plr.velX *= -2;
+			}
 			if(e.getKeyCode()==KeyEvent.VK_SHIFT) running = true;
 		}
 		if(e.getID()==KeyEvent.KEY_RELEASED) {

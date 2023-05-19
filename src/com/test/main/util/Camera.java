@@ -20,21 +20,10 @@ public class Camera {
 		yOffset = 0;
 		xScale = 1;
 		yScale = 1;
-//		minXOffset = 0;
-//		maxXOffset = Integer.MAX_VALUE;
-//		minYOffset = 0;
-//		maxYOffset = 0;
 		minXOffset = 0;
-		maxXOffset = 1920*3;
+		maxXOffset = 1920;
 		minYOffset = 0;
-		maxYOffset = 1080*3;
-//		minXOffset = Integer.MIN_VALUE;
-//		maxXOffset = Integer.MAX_VALUE;
-//		minYOffset = Integer.MIN_VALUE;
-//		maxYOffset = Integer.MAX_VALUE;
-		
-		xScale = .5;
-		yScale = .5;
+		maxYOffset = 1080;
 	}
 	
 	public void render(Graphics2D g) {

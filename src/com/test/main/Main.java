@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferStrategy;
+import java.io.*;
 
 import com.test.main.entity.Player;
 import com.test.main.entity.tiles.Box;
@@ -14,14 +15,24 @@ import com.test.main.entity.tiles.Ground;
 import com.test.main.ui.MainWindow;
 import com.test.main.util.Camera;
 import com.test.main.util.EnvironmentVariables;
+import com.test.main.util.LevelLoader;
 import com.test.main.util.handlers.EntityHandler;
 import com.test.main.util.input.KeyInput;
 import com.test.main.util.input.MouseInput;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Sequencer;
+import javax.sound.sampled.*;
 
 public class Main extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	
 	private boolean running = false;
+
 	private Thread thread;
 	
 	private EntityHandler eh;
@@ -31,22 +42,14 @@ public class Main extends Canvas implements Runnable {
 		cam = new Camera(this);
 		EnvironmentVariables.CAM = cam;
 		eh = new EntityHandler();
-		eh.addEntity(new Ground(eh,0,980,1920,100));
-		eh.addEntity(new Ground(eh,0,1080*3-100,1920*3,100));
-		eh.addEntity(new Ground(eh,0,0,1920,100));
-//		eh.addEntity(new Ground(eh,1820,0,100,1080));
-		eh.addEntity(new Ground(eh,0,0,100,1080));
-		eh.addEntity(new Ground(eh,300,300,300,80));
-		eh.addEntity(new Player(eh,960,540));
-		eh.addEntity(new Ground(eh,810,610,300,80));
-		eh.addEntity(new Box(eh,400,200));
+		new LevelLoader("test",eh);
+//		eh.addEntity(new Ground(eh,0,1080*3-100,1920*3,100));
 
 		new MainWindow(gameName,this);
 		this.addKeyListener(new KeyInput(this));
 		this.addMouseListener(new MouseInput(this));
 		this.addMouseMotionListener(new MouseInput(this));
 		this.addMouseWheelListener(new MouseInput(this));
-		
 		start();
 	}
 
@@ -84,11 +87,9 @@ public class Main extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
 	public void update() {
 		eh.update();
 	}
-	
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
@@ -128,5 +129,3 @@ public class Main extends Canvas implements Runnable {
 		new Main("Comp Sci Game");
 	}
 }
-
-
